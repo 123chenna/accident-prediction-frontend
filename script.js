@@ -5,32 +5,28 @@ async function signup() {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
-  const res = await fetch(BASE_URL + "/auth/signup", {
+  const res = await fetch(BASE_URL + "/api/signup", {   // ✅ FIXED
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password })
   });
 
   alert(await res.text());
-  window.location.href = "login.html";
+  window.location.href = "index.html"; // ✅ FIXED
 }
 
 // 🔑 Login
 async function login() {
-  const username = document.getElementById("username").value; // ✅ ADD
-  const password = document.getElementById("password").value; // ✅ ADD
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
 
-  const res = await fetch(BASE_URL + "/auth/login", {
+  const res = await fetch(BASE_URL + "/api/login", {   // ✅ FIXED
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password })
   });
 
-  console.log("Status:", res.status); // debug
-
   if (!res.ok) {
-    const text = await res.text();
-    console.log("Error:", text);
     alert("Login request failed");
     return;
   }
@@ -40,16 +36,12 @@ async function login() {
   if (data.error) {
     alert("Login Failed");
   } else {
-    console.log("Token:", data.token);
     localStorage.setItem("token", data.token);
     window.location.href = "dashboard.html";
   }
 }
 
-// 📊 Predict
-
-
-
+// 📊 Predict (already correct)
 async function predict() {
   const token = localStorage.getItem("token");
 
@@ -66,7 +58,7 @@ async function predict() {
     timeOfDay: document.getElementById("time").value
   };
 
- const res = await fetch("https://accident-backend.onrender.com/api/predict", {
+  const res = await fetch(BASE_URL + "/api/predict", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -76,12 +68,11 @@ async function predict() {
   });
 
   const text = await res.text();
-  console.log("Raw response:", text);
-
-  // ✅ display result
   document.getElementById("result").innerText = "Risk Level: " + text;
-}// 🚪 Logout
+}
+
+// 🚪 Logout
 function logout() {
   localStorage.removeItem("token");
-  window.location.href = "login.html";
+  window.location.href = "index.html"; // ✅ FIXED
 }

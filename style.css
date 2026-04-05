@@ -47,3 +47,18 @@ button:hover {
 h2 {
   margin-bottom: 15px;
 }
+/* Logout button */
+.logout-btn {
+  float: right;
+  padding: 8px 15px;
+  background: red;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.logout-btn:hover {
+  background: darkred;
+}
+

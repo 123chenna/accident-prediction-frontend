@@ -56,14 +56,14 @@ button:hover {
 
 /* Safe */
 .safe {
-  background: rgba(0,255,0,0.2);
-  color: #00ff88;
+  background:green;
+  color:black;
 }
 
 /* Danger */
 .danger {
-  background: rgba(255,0,0,0.2);
-  color: #ff4b4b;
+  background:red;
+  color:black;
 }
 
 /* Logout */

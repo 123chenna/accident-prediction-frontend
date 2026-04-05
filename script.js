@@ -1,11 +1,11 @@
-const BASE_URL = "https://accident-backend.onrender.com";
+const BASE_URL = "https://accident-prediction-backend.onrender.com";
 
 // 🔐 Signup
 async function signup() {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
-  const res = await fetch("https://accident-backend.onrender.com/auth/signup", {
+  const res = await fetch("https://accident-prediction-backend.onrender.com/auth/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"

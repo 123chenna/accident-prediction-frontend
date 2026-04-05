@@ -24,31 +24,30 @@ async function signup() {
   }
 }// 🔑 Login
 async function login() {
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-  const res = await fetch(BASE_URL + "/auth/login", {   // ✅ FIXED
+  if (!username || !password) {
+    alert("Enter username and password");
+    return;
+  }
+
+  const res = await fetch(BASE_URL + "/auth/login", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {"Content-Type": "application/json"},
     body: JSON.stringify({ username, password })
   });
 
   if (!res.ok) {
-    alert("User doesnot exists");
+    alert("Login failed");
     return;
   }
 
   const data = await res.json();
+  localStorage.setItem("token", data.token);
 
-  if (data.error) {
-    alert("Login Failed");
-  } else {
-    localStorage.setItem("token", data.token);
-    window.location.href = "dashboard.html";
-  }
-}
-
-// 📊 Predict 
+  window.location.href = "predict.html";
+}// 📊 Predict 
 async function predict() {
 
   const speed = document.getElementById("speed").value;
@@ -76,8 +75,11 @@ async function predict() {
   });
 
   const result = await res.text();
-  alert(result);
-}// 🚪 Logout
+  alert("Please Drive Carefully");
+  const resultText = await res.text();
+document.getElementById("result").innerText = resultText;
+}
+// 🚪 Logout
 function logout() {
   localStorage.removeItem("token");
   window.location.href = "index.html"; // ✅ FIXED

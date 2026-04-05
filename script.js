@@ -6,7 +6,7 @@ async function signup() {
     const username = document.getElementById("username").value;
     const password = document.getElementById("password").value;
 
-    const res = await fetch( "https://accident-prediction-backend.onrender.com"/auth/signup", {
+    const res = await fetch(BASE_URL + "/auth/signup", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"

@@ -80,16 +80,27 @@ async function predict() {
     body: JSON.stringify(data)
   });
 
-  const result = await res.text();
-  const box = document.getElementById("result");
+  // const result = await res.text();
+  // const box = document.getElementById("result");
 
-  if (result.toLowerCase().includes("high")) {
-    box.className = "danger";
-  } else {
-    box.className = "safe";
-  }
+  // if (result.toLowerCase().includes("high")) {
+  //   box.className = "danger";
+  // } else {
+  //   box.className = "safe";
+  // }
 
-  box.innerText = result;
+  // box.innerText = result;
+  const resultText = await res.text();
+
+// 🔥 store result for dashboard
+const result = {
+  prediction: resultText
+};
+
+localStorage.setItem("prediction", JSON.stringify(result));
+
+// 👉 go to dashboard
+window.location.href = "graph.html";
 }
 
 // LOGOUT

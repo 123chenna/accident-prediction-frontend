@@ -46,7 +46,7 @@ async function login() {
   const data = await res.json();
   localStorage.setItem("token", data.token);
 
-  window.location.href = "predict.html";
+  window.location.href = "dashboard.html";
 }// 📊 Predict 
 async function predict() {
 

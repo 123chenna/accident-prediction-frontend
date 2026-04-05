@@ -15,6 +15,7 @@ async function signup() {
 
   const data = await res.text();
   alert(data);
+   window.location.href = "index.html";
 }
 
 
@@ -49,7 +50,7 @@ async function login() {
   const data = await res.json();
   localStorage.setItem("token", data.token);
 
-  window.location.href = "predict.html";
+  window.location.href = "dashboard.html";
 }
 
 // PREDICT
@@ -94,5 +95,5 @@ async function predict() {
 // LOGOUT
 function logout() {
   localStorage.removeItem("token");
-  window.location.href = "login.html";
+  window.location.href = "index.html";
 }

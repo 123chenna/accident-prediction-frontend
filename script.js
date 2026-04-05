@@ -2,31 +2,27 @@ const BASE_URL = "https://accident-prediction-backend.onrender.com";
 
 // 🔐 Signup
 async function signup() {
-  try {
-    const username = document.getElementById("username").value;
-    const password = document.getElementById("password").value;
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
 
-    const res = await fetch(BASE_URL + "/auth/signup", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json"
-      },
-      body: JSON.stringify({ username, password })
-    });
-
-    const text = await res.text();
-
-    console.log("STATUS:", res.status);
-    console.log("RESPONSE:", text);
-
-    alert(text);
-
-  } catch (err) {
-    console.error("ERROR:", err);
-    alert("Something went wrong");
+  // ✅ Validation
+  if (!username || !password) {
+    alert("Please enter username and password");
+    return;
   }
-}
-// 🔑 Login
+
+  const res = await fetch(BASE_URL + "/auth/signup", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ username, password })
+  });
+
+  if (res.ok) {
+    alert("Registered Successfully");
+  } else {
+    alert("Signup failed");
+  }
+}// 🔑 Login
 async function login() {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
@@ -38,7 +34,7 @@ async function login() {
   });
 
   if (!res.ok) {
-    alert("Login request failed");
+    alert("User doesnot exists");
     return;
   }
 
@@ -52,17 +48,18 @@ async function login() {
   }
 }
 
-// 📊 Predict (already correct)
+// 📊 Predict 
 async function predict() {
-  const token = localStorage.getItem("token");
 
-  if (!token) {
-    alert("Please login first");
+  const speed = document.getElementById("speed").value;
+
+  if (!speed) {
+    alert("Please enter speed");
     return;
   }
 
   const data = {
-    speed: parseInt(document.getElementById("speed").value),
+    speed: parseInt(speed),
     weather: document.getElementById("weather").value,
     roadType: document.getElementById("roadType").value,
     trafficDensity: document.getElementById("traffic").value,
@@ -73,16 +70,14 @@ async function predict() {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
-      "Authorization": "Bearer " + token
+      "Authorization": "Bearer " + localStorage.getItem("token")
     },
     body: JSON.stringify(data)
   });
 
-  const text = await res.text();
-  document.getElementById("result").innerText = "Risk Level: " + text;
-}
-
-// 🚪 Logout
+  const result = await res.text();
+  alert(result);
+}// 🚪 Logout
 function logout() {
   localStorage.removeItem("token");
   window.location.href = "index.html"; // ✅ FIXED

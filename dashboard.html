@@ -1,71 +1,46 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <div class="container">
-
-  <button class="logout-btn" onclick="logout()">Logout</button>
-
-  <h1>🚗 Road Accident Prediction System</h1>
-  <title>Road Accident Prediction</title>
+  <title>Prediction</title>
   <link rel="stylesheet" href="style.css">
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<div class="container">
+<div class="card">
 
-  <h1>🚗 Road Accident Prediction System</h1>
+  <h2>🚗 Accident Prediction</h2>
 
-  <div class="card">
+  <input id="speed" type="number" placeholder="Speed (km/h)">
 
-    <h2>Enter Details</h2>
+  <select id="weather">
+    <option value="clear">Clear</option>
+    <option value="rain">Rain</option>
+    <option value="fog">Fog</option>
+  </select>
 
-    <div class="form-group">
-      <label>Speed (km/h)</label>
-      <input type="number" id="speed" placeholder="Enter speed">
-    </div>
+  <select id="roadType">
+    <option value="highway">Highway</option>
+    <option value="city">City</option>
+    <option value="rural">Rural</option>
+  </select>
 
-    <div class="form-group">
-      <label>Weather</label>
-      <select id="weather">
-        <option value="clear">Clear</option>
-        <option value="rain">Rain</option>
-        <option value="fog">Fog</option>
-      </select>
-    </div>
+  <select id="traffic">
+    <option value="low">Low</option>
+    <option value="medium">Medium</option>
+    <option value="high">High</option>
+  </select>
 
-    <div class="form-group">
-      <label>Road Type</label>
-      <select id="roadType">
-        <option value="highway">Highway</option>
-        <option value="city">City</option>
-        <option value="rural">Rural</option>
-      </select>
-    </div>
+  <select id="time">
+    <option value="day">Day</option>
+    <option value="night">Night</option>
+    <option value="morning">Morning</option>
+  </select>
 
-    <div class="form-group">
-      <label>Traffic Density</label>
-      <select id="traffic">
-        <option value="low">Low</option>
-        <option value="medium">Medium</option>
-        <option value="high">High</option>
-      </select>
-    </div>
+  <button onclick="predict()">Predict Risk</button>
 
-    <div class="form-group">
-      <label>Time of Day</label>
-      <select id="time">
-        <option value="day">Day</option>
-        <option value="night">Night</option>
-        <option value="night">Morning</option>
-      </select>
-    </div>
+  <div id="result"></div>
 
-    <button onclick="predict()">Predict Risk</button>
-
-    <div id="result"></div>
-
-  </div>
+  <button class="logout-btn" onclick="logout()">Logout</button>
 
 </div>
 

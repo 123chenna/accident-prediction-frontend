@@ -5,14 +5,16 @@ async function signup() {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
-  const res = await fetch(BASE_URL + "/auth/signup", {   // ✅ FIXED
+  const res = await fetch("https://accident-backend.onrender.com/auth/signup", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify({ username, password })
   });
 
-  alert(await res.text());
-  window.location.href = "index.html"; // ✅ FIXED
+  const data = await res.text();
+  alert(data);
 }
 
 // 🔑 Login

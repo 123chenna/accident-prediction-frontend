@@ -69,7 +69,7 @@ async function login() {
   localStorage.setItem("token", data.token);
 
   // 👉 Go to predict page
-  window.location.href = "predict.html";
+  window.location.href = "dashboard.html";
 }
 
 

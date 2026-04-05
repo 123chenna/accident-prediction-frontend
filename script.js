@@ -2,21 +2,30 @@ const BASE_URL = "https://accident-backend.onrender.com";
 
 // 🔐 Signup
 async function signup() {
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
+  try {
+    const username = document.getElementById("username").value;
+    const password = document.getElementById("password").value;
 
-  const res = await fetch("https://accident-backend.onrender.com/auth/signup", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({ username, password })
-  });
+    const res = await fetch("https://accident-backend.onrender.com/auth/signup", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify({ username, password })
+    });
 
-  const data = await res.text();
-  alert(data);
+    const text = await res.text();
+
+    console.log("STATUS:", res.status);
+    console.log("RESPONSE:", text);
+
+    alert(text);
+
+  } catch (err) {
+    console.error("ERROR:", err);
+    alert("Something went wrong");
+  }
 }
-
 // 🔑 Login
 async function login() {
   const username = document.getElementById("username").value;

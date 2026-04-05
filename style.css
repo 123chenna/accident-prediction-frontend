@@ -1,64 +1,49 @@
-/* 🌈 Background Gradient */
 body {
-  margin: 0;
   font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #667eea, #764ba2);
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-/* 🧊 Glass Card */
-.container {
-  width: 400px;
-  padding: 25px;
-  border-radius: 20px;
-  background: rgba(255, 255, 255, 0.15);
-  backdrop-filter: blur(12px);
-  box-shadow: 0 8px 32px rgba(0,0,0,0.2);
-  text-align: center;
+  background: url('https://images.unsplash.com/photo-1549924231-f129b911e442') no-repeat center center/cover;
+  margin: 0;
+  padding: 0;
   color: white;
 }
 
-/* 🧾 Headings */
-h1, h2 {
-  margin-bottom: 15px;
+/* Container */
+.container {
+  width: 350px;
+  margin: 80px auto;
+  padding: 25px;
+  background: rgba(0,0,0,0.7);
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.6);
+  text-align: center;
 }
 
-/* 📥 Inputs & Select */
+/* Inputs */
 input, select {
   width: 90%;
   padding: 10px;
-  margin: 8px 0;
+  margin: 10px 0;
+  border-radius: 8px;
   border: none;
-  border-radius: 10px;
   outline: none;
 }
 
-/* 🚀 Button */
+/* Button */
 button {
-  margin-top: 15px;
-  padding: 10px 20px;
+  width: 95%;
+  padding: 10px;
+  background: #ff4b2b;
   border: none;
-  border-radius: 25px;
-  background: linear-gradient(45deg, #ff7e5f, #feb47b);
   color: white;
   font-weight: bold;
+  border-radius: 8px;
   cursor: pointer;
-  transition: 0.3s;
 }
 
-/* ✨ Hover effect */
 button:hover {
-  transform: scale(1.05);
-  box-shadow: 0 0 15px rgba(255,255,255,0.5);
+  background: #ff1c00;
 }
 
-/* 📊 Result Box */
-#result {
-  margin-top: 20px;
-  font-size: 20px;
-  font-weight: bold;
-  color: #00ffcc;
+/* Heading */
+h2 {
+  margin-bottom: 15px;
 }

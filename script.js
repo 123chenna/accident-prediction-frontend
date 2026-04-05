@@ -43,7 +43,7 @@ async function login() {
   });
 
   if (!res.ok) {
-    alert("Login failed");
+    alert("User Doesnot Exixts");
     return;
   }
 

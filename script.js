@@ -5,7 +5,7 @@ async function signup() {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
-  const res = await fetch(BASE_URL + "/api/signup", {   // ✅ FIXED
+  const res = await fetch(BASE_URL + "/auth/signup", {   // ✅ FIXED
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password })
@@ -20,7 +20,7 @@ async function login() {
   const username = document.getElementById("username").value;
   const password = document.getElementById("password").value;
 
-  const res = await fetch(BASE_URL + "/api/login", {   // ✅ FIXED
+  const res = await fetch(BASE_URL + "/auth/login", {   // ✅ FIXED
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ username, password })

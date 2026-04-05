@@ -1,28 +1,31 @@
-const BASE_URL = "https://accident-prediction-backend.onrender.com";
+const BASE_URL = "https://accident-backend.onrender.com";
 
 // 🔐 Signup
 async function signup() {
-  const username = document.getElementById("username").value.trim();
-  const password = document.getElementById("password").value.trim();
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
 
-  // ✅ Validation
-  if (!username || !password) {
-    alert("Please enter username and password");
-    return;
-  }
-
-  const res = await fetch(BASE_URL + "/auth/signup", {
+  const res = await fetch("https://accident-backend.onrender.com/auth/signup", {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify({ username, password })
   });
 
-  if (res.ok) {
-    alert("Registered Successfully");
-  } else {
-    alert("Signup failed");
+  const data = await res.text();
+  alert(data);
+}
+
+
+// Protect predict page
+if (window.location.pathname.includes("dashboard.html.html")) {
+  if (!localStorage.getItem("token")) {
+    window.location.href = "index.html.html";
   }
-}// 🔑 Login
+}
+
+// LOGIN
 async function login() {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
@@ -46,14 +49,16 @@ async function login() {
   const data = await res.json();
   localStorage.setItem("token", data.token);
 
-  window.location.href = "dashboard.html";
-}// 📊 Predict 
+  window.location.href = "predict.html";
+}
+
+// PREDICT
 async function predict() {
 
   const speed = document.getElementById("speed").value;
 
   if (!speed) {
-    alert("Please enter speed");
+    alert("Enter speed");
     return;
   }
 
@@ -75,12 +80,19 @@ async function predict() {
   });
 
   const result = await res.text();
-  alert("Please Drive Carefully");
-  const resultText = await res.text();
-document.getElementById("result").innerText = resultText;
+  const box = document.getElementById("result");
+
+  if (result.toLowerCase().includes("high")) {
+    box.className = "danger";
+  } else {
+    box.className = "safe";
+  }
+
+  box.innerText = result;
 }
-// 🚪 Logout
+
+// LOGOUT
 function logout() {
   localStorage.removeItem("token");
-  window.location.href = "index.html"; // ✅ FIXED
+  window.location.href = "login.html";
 }

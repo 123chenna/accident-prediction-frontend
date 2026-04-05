@@ -1,11 +1,17 @@
 const BASE_URL = "https://accident-prediction-backend.onrender.com";
 
-// 🔐 Signup
-async function signup() {
-  const username = document.getElementById("username").value;
-  const password = document.getElementById("password").value;
 
-  const res = await fetch("https://accident-prediction-backend.onrender.com/auth/signup", {
+// 🔐 SIGNUP
+async function signup() {
+  const username = document.getElementById("username").value.trim();
+  const password = document.getElementById("password").value.trim();
+
+  if (!username || !password) {
+    alert("Enter username and password");
+    return;
+  }
+
+  const res = await fetch(BASE_URL + "/auth/signup", {
     method: "POST",
     headers: {
       "Content-Type": "application/json"
@@ -13,20 +19,28 @@ async function signup() {
     body: JSON.stringify({ username, password })
   });
 
+  if (!res.ok) {
+    alert("Signup failed");
+    return;
+  }
+
   const data = await res.text();
   alert(data);
-   window.location.href = "index.html";
+
+  // 👉 Go to login page
+  window.location.href = "index.html";
 }
 
 
-// Protect predict page
-if (window.location.pathname.includes("dashboard.html.html")) {
+// 🔒 PROTECT DASHBOARD PAGE
+if (window.location.pathname.includes("graph.html")) {
   if (!localStorage.getItem("token")) {
-    window.location.href = "index.html.html";
+    window.location.href = "index.html";
   }
 }
 
-// LOGIN
+
+// 🔐 LOGIN
 async function login() {
   const username = document.getElementById("username").value.trim();
   const password = document.getElementById("password").value.trim();
@@ -38,22 +52,28 @@ async function login() {
 
   const res = await fetch(BASE_URL + "/auth/login", {
     method: "POST",
-    headers: {"Content-Type": "application/json"},
+    headers: {
+      "Content-Type": "application/json"
+    },
     body: JSON.stringify({ username, password })
   });
 
   if (!res.ok) {
-    alert("User Doesnot Exixts");
+    alert("User does not exist or wrong password");
     return;
   }
 
   const data = await res.json();
+
+  // 🔥 Store token
   localStorage.setItem("token", data.token);
 
-  window.location.href = "dashboard.html";
+  // 👉 Go to predict page
+  window.location.href = "predict.html";
 }
 
-// PREDICT
+
+// 📊 PREDICT
 async function predict() {
 
   const speed = document.getElementById("speed").value;
@@ -80,30 +100,25 @@ async function predict() {
     body: JSON.stringify(data)
   });
 
-  // const result = await res.text();
-  // const box = document.getElementById("result");
+  if (!res.ok) {
+    alert("Prediction failed");
+    return;
+  }
 
-  // if (result.toLowerCase().includes("high")) {
-  //   box.className = "danger";
-  // } else {
-  //   box.className = "safe";
-  // }
-
-  // box.innerText = result;
+  // 🔥 Get result text (HIGH / LOW)
   const resultText = await res.text();
 
-// 🔥 store result for dashboard
-const result = {
-  prediction: resultText
-};
+  // 🔥 Store result for dashboard
+  localStorage.setItem("prediction", JSON.stringify({
+    prediction: resultText
+  }));
 
-localStorage.setItem("prediction", JSON.stringify(result));
-
-// 👉 go to dashboard
-window.location.href = "graph.html";
+  // 👉 Go to dashboard
+  window.location.href = "graph.html";
 }
 
-// LOGOUT
+
+// 🔓 LOGOUT
 function logout() {
   localStorage.removeItem("token");
   window.location.href = "index.html";
